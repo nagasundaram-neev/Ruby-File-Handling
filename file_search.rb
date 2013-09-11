@@ -1,4 +1,4 @@
-class File_Search
+class FileSearch
  
  def initialize(filename)
   @filename=  filename
@@ -30,7 +30,7 @@ class File_Search
     end
   end
 
-  def search 
+  def search  #it asks the pattern to be found in the text file  and also asks the ignore case option and call the find and highlight methods
     File.open(@filename, "r+")
     text=File.readlines(@filename)
     
@@ -51,7 +51,7 @@ class File_Search
     highlight(input_patrn,text.to_s) 
    end
 
-  def highlight(pattern, text)
+  def highlight(pattern, text) # it finds and replaces the pattern in the text file with some highlighters and display the result as html
    temp=text.to_s
    temp.gsub!(Regexp.new(pattern,Regexp::IGNORECASE), "<b style=background-color:green>#{pattern}</b>") 
    htmlfile = File.new("output.html", "w+")
@@ -60,9 +60,9 @@ class File_Search
    system 'sleep 3'
    system 'firefox output.html'
   end
- def find(text,pattern,ignore_case)
-    i=0
-    found=0
+
+ def find(text,pattern,ignore_case) #it finds the line number and word number of the given pattern in the text file
+    i=found=0
   begin  
     f = File.open(@filename)
     f.each {|line|
@@ -87,6 +87,6 @@ class File_Search
 end
 print "Enter the filename:"
 filename=gets.chomp
-f=File_Search.new(filename)
+f=FileSearch.new(filename)
 f.create
 f.search
